@@ -1,73 +1,80 @@
-import { Table, Input, Button, Form, Pagination, Flex, Modal } from "antd";
-import { StrictMode, useState, useEffect } from "react";
+import { Button, Form, Input } from 'antd'
+import { useEffect } from 'react'
 function Detailpost(props) {
-  const { setChitiet, isOpenmodaldieuchinh, Chitiet, handleSave } = props;
-  console.log(Chitiet);
+  const { setChitiet, Chitiet, handleSave, mode } = props
+  const [form] = Form.useForm()
 
+  // Đồng bộ dữ liệu vào form khi Chitiet thay đổi
+  useEffect(() => {
+    if (Chitiet) {
+      form.setFieldsValue({
+        title: Chitiet.title,
+        body: Chitiet.body,
+      })
+    }
+  }, [Chitiet])
   const onFinish_Dieuchinhform = (e) => {
     if (!e.title || !e.body) {
-      alert("Both title and body are required.");
-      return;
+      alert('Both title and body are required.')
+      return
     }
-    fetch("https://dummyjson.com/posts/" + Chitiet.id, {
-      method: "PUT" /* or PATCH */,
-      headers: { "Content-Type": "application/json" },
+    fetch('https://dummyjson.com/posts/' + Chitiet.id, {
+      method: 'PUT' /* or PATCH */,
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        title: e["title"],
-        body: e["body"],
+        title: e['title'],
+        body: e['body'],
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data);
-        handleSave();
-        setChitiet(data);
-        // isOpenmodaldieuchinh(false);
-      });
-  };
+        setChitiet?.(data)
+        handleSave(data)
+      })
+  }
 
   const showChitiet = () => {
     //console.log(props);
-    if (props.isOpenmodal === true) {
+    if (mode === 'view') {
       return (
         <>
           <p>{props.Chitiet.title}</p>
           <p>{props.Chitiet.body}</p>
         </>
-      );
+      )
     } else {
       return (
         <>
-          {/* <div className="block"> */}
           <Form
+            form={form}
             onFinish={onFinish_Dieuchinhform}
-            initialValues={{ title: Chitiet.title }}
+            initialValues={{
+              title: Chitiet?.title,
+              body: Chitiet?.body,
+            }}
           >
-            {/* <Flex gap="5px"> */}
-            <Form.Item name="title">
+            <Form.Item name='title'>
               <Input
-                placeholder="input text"
-                size="large"
+                placeholder='input text'
+                size='large'
                 style={{ width: 304 }}
               ></Input>
             </Form.Item>
-            <Form.Item name="body" initialValue={Chitiet.body}>
+            <Form.Item name='body'>
               <Input
-                placeholder="input text"
-                size="large"
+                placeholder='input text'
+                size='large'
                 style={{ width: 304 }}
               ></Input>
             </Form.Item>
-            <Form.Item name="nut_bam_dieu_chinh">
-              <Button htmlType="submit">Điều chỉnh</Button>
+            <Form.Item name='nut_bam_dieu_chinh'>
+              <Button htmlType='submit'>Điều chỉnh</Button>
             </Form.Item>
-            {/* </Flex> */}
           </Form>
-          {/* </div> */}
         </>
-      );
+      )
     }
-  };
-  return <>{showChitiet()}</>;
+  }
+  return <>{showChitiet()}</>
 }
-export default Detailpost;
+export default Detailpost
