@@ -68,7 +68,7 @@ function Post() {
         setIsOpenModal(true);
       });
   };
-
+//chuẩn bị
   const handleSave = (data) => {
     //let flag = false;
     //console.log(Chitiet);
