@@ -3,8 +3,6 @@ import { useEffect } from "react";
 function Detailpost(props) {
   const { setChitiet, Chitiet, handleSave, handleAdd, mode } = props;
   const [form] = Form.useForm();
-
-  // Đồng bộ dữ liệu vào form khi Chitiet thay đổi
   useEffect(() => {
     if (Chitiet) {
       form.setFieldsValue({
@@ -18,7 +16,6 @@ function Detailpost(props) {
       alert("Both title and body are required.");
       return;
     }
-
     fetch("https://dummyjson.com/posts/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -39,7 +36,6 @@ function Detailpost(props) {
       alert("Both title and body are required.");
       return;
     }
-
     fetch("https://dummyjson.com/posts/" + Chitiet.id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -54,9 +50,7 @@ function Detailpost(props) {
         handleSave(data);
       });
   };
-
   const showChitiet = () => {
-    //console.log(props);
     if (mode === "view") {
       return (
         <>

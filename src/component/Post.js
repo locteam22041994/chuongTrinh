@@ -1,7 +1,6 @@
 import { Button, Flex, Form, Input, Modal, Pagination, Table } from "antd";
 import { useEffect, useState } from "react";
 import Detailpost from "./Detailpost";
-
 function Post() {
   const [Post, setPost] = useState([]);
   const [Filter, setFilter] = useState({ limit: 10, skip: 0 });
@@ -10,7 +9,6 @@ function Post() {
   const [Chitiet, setChitiet] = useState({});
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mode, setMode] = useState("view");
-
   useEffect(() => {
     fetch(
       "https://dummyjson.com/posts/search?limit=" +
@@ -25,7 +23,6 @@ function Post() {
         setTotal(data.total);
       });
   }, [Query, Filter]);
-
   const clickDieuchinh = (id) => {
     fetch("https://dummyjson.com/posts/" + id)
       .then((res) => res.json())
@@ -35,7 +32,6 @@ function Post() {
         setIsOpenModal(true);
       });
   };
-
   const clickChitiet = (id, mode) => {
     const current_post = Post.find((post) => post.id === id);
     setChitiet(current_post);
@@ -86,23 +82,17 @@ function Post() {
       ),
     },
   ];
-
   const onFinish_form = (e) => {
     setQuery("&q=" + Number(e["tim_kiem"]));
     setFilter({ limit: Filter.limit, skip: 0 });
   };
-
   const Changpage = (page, pageSize) => {
     setFilter({ limit: pageSize, skip: Filter.limit * (page - 1) });
   };
-
   const ItemPage = (current, pageSize) => {
     setFilter({ limit: pageSize, skip: Filter.limit * (current - 1) });
   };
-
   const Hientotal = () => <div>{Total}</div>;
-  console.log(Post);
-
   return (
     <div className="block">
       <Form onFinish={onFinish_form}>
@@ -122,9 +112,7 @@ function Post() {
       <Flex gap="5px">
         <Button onClick={() => clickThem("add")}>Thêm</Button>
       </Flex>
-
       <Table dataSource={Post} columns={columns} />
-
       <Pagination
         defaultPageSize={Filter.limit}
         pageSizeOptions={[1, 2, 3, 4]}
@@ -153,5 +141,4 @@ function Post() {
     </div>
   );
 }
-
 export default Post;
