@@ -1,8 +1,8 @@
-import { Button, Form, Input } from 'antd'
-import { useEffect } from 'react'
+import { Button, Form, Input } from "antd";
+import { useEffect } from "react";
 function Detailpost(props) {
-  const { setChitiet, Chitiet, handleSave, mode } = props
-  const [form] = Form.useForm()
+  const { setChitiet, Chitiet, handleSave, handleAdd, mode } = props;
+  const [form] = Form.useForm();
 
   // Đồng bộ dữ liệu vào form khi Chitiet thay đổi
   useEffect(() => {
@@ -10,38 +10,98 @@ function Detailpost(props) {
       form.setFieldsValue({
         title: Chitiet.title,
         body: Chitiet.body,
-      })
+      });
     }
-  }, [Chitiet])
-  const onFinish_Dieuchinhform = (e) => {
+  }, [Chitiet]);
+  const onFinish_them = (e) => {
     if (!e.title || !e.body) {
-      alert('Both title and body are required.')
-      return
+      alert("Both title and body are required.");
+      return;
     }
-    fetch('https://dummyjson.com/posts/' + Chitiet.id, {
-      method: 'PUT' /* or PATCH */,
-      headers: { 'Content-Type': 'application/json' },
+
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title: e['title'],
-        body: e['body'],
+        userId: e["userId"],
+        title: e["title"],
+        body: e["body"],
       }),
     })
       .then((res) => res.json())
       .then((data) => {
-        setChitiet?.(data)
-        handleSave(data)
-      })
-  }
+        setChitiet?.(data);
+        handleAdd(data);
+      });
+  };
+  const onFinish_Dieuchinhform = (e) => {
+    if (!e.title || !e.body) {
+      alert("Both title and body are required.");
+      return;
+    }
+
+    fetch("https://dummyjson.com/posts/" + Chitiet.id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: e["title"],
+        body: e["body"],
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setChitiet?.(data);
+        handleSave(data);
+      });
+  };
 
   const showChitiet = () => {
     //console.log(props);
-    if (mode === 'view') {
+    if (mode === "view") {
       return (
         <>
           <p>{props.Chitiet.title}</p>
           <p>{props.Chitiet.body}</p>
         </>
-      )
+      );
+    } else if (mode === "add") {
+      return (
+        <>
+          <Form
+            form={form}
+            onFinish={onFinish_them}
+            initialValues={{
+              title: Chitiet?.title,
+              body: Chitiet?.body,
+            }}
+          >
+            <Form.Item name="userId">
+              <Input
+                placeholder="input text"
+                size="large"
+                style={{ width: 304 }}
+              ></Input>
+            </Form.Item>
+            <Form.Item name="title">
+              <Input
+                placeholder="input text"
+                size="large"
+                style={{ width: 304 }}
+              ></Input>
+            </Form.Item>
+            <Form.Item name="body">
+              <Input
+                placeholder="input text"
+                size="large"
+                style={{ width: 304 }}
+              ></Input>
+            </Form.Item>
+            <Form.Item name="nut_bam_them">
+              <Button htmlType="submit">Thêm</Button>
+            </Form.Item>
+          </Form>
+        </>
+      );
     } else {
       return (
         <>
@@ -53,28 +113,28 @@ function Detailpost(props) {
               body: Chitiet?.body,
             }}
           >
-            <Form.Item name='title'>
+            <Form.Item name="title">
               <Input
-                placeholder='input text'
-                size='large'
+                placeholder="input text"
+                size="large"
                 style={{ width: 304 }}
               ></Input>
             </Form.Item>
-            <Form.Item name='body'>
+            <Form.Item name="body">
               <Input
-                placeholder='input text'
-                size='large'
+                placeholder="input text"
+                size="large"
                 style={{ width: 304 }}
               ></Input>
             </Form.Item>
-            <Form.Item name='nut_bam_dieu_chinh'>
-              <Button htmlType='submit'>Điều chỉnh</Button>
+            <Form.Item name="nut_bam_dieu_chinh">
+              <Button htmlType="submit">Điều chỉnh</Button>
             </Form.Item>
           </Form>
         </>
-      )
+      );
     }
-  }
-  return <>{showChitiet()}</>
+  };
+  return <>{showChitiet()}</>;
 }
-export default Detailpost
+export default Detailpost;

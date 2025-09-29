@@ -9,7 +9,7 @@ function Post() {
   const [Query, setQuery] = useState("");
   const [Chitiet, setChitiet] = useState({});
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [mode, setMode] = useState("view"); // "view" | "edit"
+  const [mode, setMode] = useState("view");
 
   useEffect(() => {
     fetch(
@@ -42,7 +42,10 @@ function Post() {
     setMode(mode);
     setIsOpenModal(true);
   };
-
+  const clickThem = (mode) => {
+    setMode(mode);
+    setIsOpenModal(true);
+  };
   const handleSave = (data) => {
     const list = Post.map((current_post) => {
       if (current_post.id === data.id) {
@@ -53,7 +56,12 @@ function Post() {
     setPost(list);
     setIsOpenModal(false);
   };
-
+  const handleAdd = (data) => {
+    let arr = [];
+    arr = [data, ...Post];
+    setPost(arr);
+    setIsOpenModal(false);
+  };
   const columns = [
     { title: "Title", dataIndex: "title", key: "title" },
     { title: "Body", dataIndex: "body", key: "body" },
@@ -111,6 +119,9 @@ function Post() {
           </Form.Item>
         </Flex>
       </Form>
+      <Flex gap="5px">
+        <Button onClick={() => clickThem("add")}>Thêm</Button>
+      </Flex>
 
       <Table dataSource={Post} columns={columns} />
 
@@ -136,6 +147,7 @@ function Post() {
           Chitiet={Chitiet}
           setChitiet={setChitiet}
           handleSave={handleSave}
+          handleAdd={handleAdd}
         />
       </Modal>
     </div>
