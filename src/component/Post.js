@@ -1,6 +1,7 @@
 import { Button, Flex, Form, Input, Modal, Pagination, Table } from "antd";
 import { useEffect, useState } from "react";
 import Detailpost from "./Detailpost";
+import Login from "./Login";
 function Post() {
   const [Post, setPost] = useState([]);
   const [Filter, setFilter] = useState({ limit: 10, skip: 0 });
@@ -42,6 +43,11 @@ function Post() {
     setMode(mode);
     setIsOpenModal(true);
   };
+  const clickLogin = (mode) => {
+    setMode(mode);
+    setIsOpenModal(true);
+  };
+
   const handleSave = (data) => {
     const list = Post.map((current_post) => {
       if (current_post.id === data.id) {
@@ -109,8 +115,15 @@ function Post() {
           </Form.Item>
         </Flex>
       </Form>
-      <Flex gap="5px">
+      <Flex
+        gap="50em"
+        style={{
+          display: "inline-flex", // khối inline-block
+          justifyContent: "space-between", // giãn đều 2 nút
+        }}
+      >
         <Button onClick={() => clickThem("add")}>Thêm</Button>
+        <Button onClick={() => clickLogin("login")}>Login</Button>
       </Flex>
       <Table dataSource={Post} columns={columns} />
       <Pagination
@@ -125,7 +138,11 @@ function Post() {
       />
 
       <Modal
-        open={isOpenModal}
+        open={
+          (mode === "add" && isOpenModal) ||
+          (mode === "edit" && isOpenModal) ||
+          isOpenModal
+        }
         onCancel={() => setIsOpenModal(false)}
         footer={null}
         destroyOnHidden
@@ -137,6 +154,14 @@ function Post() {
           handleSave={handleSave}
           handleAdd={handleAdd}
         />
+      </Modal>
+      <Modal
+        open={mode === "login" && isOpenModal}
+        onCancel={() => setIsOpenModal(false)}
+        footer={null}
+        destroyOnHidden
+      >
+        <Login />
       </Modal>
     </div>
   );
