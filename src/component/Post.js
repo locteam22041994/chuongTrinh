@@ -1,4 +1,5 @@
 import { Button, Flex, Form, Input, Modal, Pagination, Table } from "antd";
+import { NavLink, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Detailpost from "./Detailpost";
 import Login from "./Login";
@@ -45,7 +46,13 @@ function Post() {
   };
   const clickLogin = (mode) => {
     setMode(mode);
-    setIsOpenModal(true);
+    return (
+      <>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </>
+    );
   };
 
   const handleSave = (data) => {
@@ -123,7 +130,9 @@ function Post() {
         }}
       >
         <Button onClick={() => clickThem("add")}>Thêm</Button>
-        <Button onClick={() => clickLogin("login")}>Login</Button>
+        <Button onClick={() => clickLogin("login")}>
+          <NavLink to="/login">Login</NavLink>
+        </Button>
       </Flex>
       <Table dataSource={Post} columns={columns} />
       <Pagination
@@ -138,11 +147,7 @@ function Post() {
       />
 
       <Modal
-        open={
-          (mode === "add" && isOpenModal) ||
-          (mode === "edit" && isOpenModal) ||
-          isOpenModal
-        }
+        open={isOpenModal}
         onCancel={() => setIsOpenModal(false)}
         footer={null}
         destroyOnHidden
@@ -154,14 +159,6 @@ function Post() {
           handleSave={handleSave}
           handleAdd={handleAdd}
         />
-      </Modal>
-      <Modal
-        open={mode === "login" && isOpenModal}
-        onCancel={() => setIsOpenModal(false)}
-        footer={null}
-        destroyOnHidden
-      >
-        <Login />
       </Modal>
     </div>
   );

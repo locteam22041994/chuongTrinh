@@ -4,7 +4,7 @@ function Login(props) {
   const { setChitiet, Chitiet, handleSave, handleAdd, mode } = props;
   const [form] = Form.useForm();
   const onFinish_login = (e) => {};
-  const showChitiet = () => {
+  const showLogin = () => {
     return (
       <>
         <Form
@@ -38,6 +38,6 @@ function Login(props) {
       </>
     );
   };
-  return <>{showChitiet()}</>;
+  return <>{showLogin()}</>;
 }
 export default Login;
