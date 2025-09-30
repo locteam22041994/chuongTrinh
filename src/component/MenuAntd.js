@@ -41,11 +41,6 @@ function MenuAntd() {
         mode="inline"
         items={MenuItem}
       />
-
-      <Routes>
-        <Route path="/" element />
-        <Route path="/post/list" element={<Post />} />
-      </Routes>
     </>
   );
 }

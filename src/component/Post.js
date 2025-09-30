@@ -3,6 +3,7 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Detailpost from "./Detailpost";
 import Login from "./Login";
+import MenuAntd from "./MenuAntd";
 function Post() {
   const [Post, setPost] = useState([]);
   const [Filter, setFilter] = useState({ limit: 10, skip: 0 });
@@ -43,16 +44,6 @@ function Post() {
   const clickThem = (mode) => {
     setMode(mode);
     setIsOpenModal(true);
-  };
-  const clickLogin = (mode) => {
-    setMode(mode);
-    return (
-      <>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </>
-    );
   };
 
   const handleSave = (data) => {
@@ -107,60 +98,65 @@ function Post() {
   };
   const Hientotal = () => <div>{Total}</div>;
   return (
-    <div className="block">
-      <Form onFinish={onFinish_form}>
-        <Flex gap="5px">
-          <Form.Item name="tim_kiem">
-            <Input
-              placeholder="input search text"
-              size="large"
-              style={{ width: 304 }}
-            />
-          </Form.Item>
-          <Form.Item name="nut_bam">
-            <Button htmlType="submit">Tìm kiếm</Button>
-          </Form.Item>
+    <>
+      <Routes>
+        <Route path="/" element={<MenuAntd />} />
+      </Routes>
+      <div className="block">
+        <Form onFinish={onFinish_form}>
+          <Flex gap="5px">
+            <Form.Item name="tim_kiem">
+              <Input
+                placeholder="input search text"
+                size="large"
+                style={{ width: 304 }}
+              />
+            </Form.Item>
+            <Form.Item name="nut_bam">
+              <Button htmlType="submit">Tìm kiếm</Button>
+            </Form.Item>
+          </Flex>
+        </Form>
+        <Flex
+          gap="50em"
+          style={{
+            display: "inline-flex", // khối inline-block
+            justifyContent: "space-between", // giãn đều 2 nút
+          }}
+        >
+          <Button onClick={() => clickThem("add")}>Thêm</Button>
+          <NavLink to="/login">
+            <Button>Login</Button>
+          </NavLink>
         </Flex>
-      </Form>
-      <Flex
-        gap="50em"
-        style={{
-          display: "inline-flex", // khối inline-block
-          justifyContent: "space-between", // giãn đều 2 nút
-        }}
-      >
-        <Button onClick={() => clickThem("add")}>Thêm</Button>
-        <Button onClick={() => clickLogin("login")}>
-          <NavLink to="/login">Login</NavLink>
-        </Button>
-      </Flex>
-      <Table dataSource={Post} columns={columns} />
-      <Pagination
-        defaultPageSize={Filter.limit}
-        pageSizeOptions={[1, 2, 3, 4]}
-        onShowSizeChange={ItemPage}
-        showSizeChanger
-        total={Total}
-        style={{ paddingLeft: "20px" }}
-        showTotal={Hientotal}
-        onChange={Changpage}
-      />
-
-      <Modal
-        open={isOpenModal}
-        onCancel={() => setIsOpenModal(false)}
-        footer={null}
-        destroyOnHidden
-      >
-        <Detailpost
-          mode={mode}
-          Chitiet={Chitiet}
-          setChitiet={setChitiet}
-          handleSave={handleSave}
-          handleAdd={handleAdd}
+        <Table dataSource={Post} columns={columns} />
+        <Pagination
+          defaultPageSize={Filter.limit}
+          pageSizeOptions={[1, 2, 3, 4]}
+          onShowSizeChange={ItemPage}
+          showSizeChanger
+          total={Total}
+          style={{ paddingLeft: "20px" }}
+          showTotal={Hientotal}
+          onChange={Changpage}
         />
-      </Modal>
-    </div>
+
+        <Modal
+          open={isOpenModal}
+          onCancel={() => setIsOpenModal(false)}
+          footer={null}
+          destroyOnHidden
+        >
+          <Detailpost
+            mode={mode}
+            Chitiet={Chitiet}
+            setChitiet={setChitiet}
+            handleSave={handleSave}
+            handleAdd={handleAdd}
+          />
+        </Modal>
+      </div>
+    </>
   );
 }
 export default Post;
