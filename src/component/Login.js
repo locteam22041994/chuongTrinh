@@ -1,9 +1,30 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, notification } from "antd";
 import { useEffect } from "react";
 function Login(props) {
   const { setChitiet, Chitiet, handleSave, handleAdd, mode } = props;
   const [form] = Form.useForm();
-  const onFinish_login = (e) => {};
+  const onFinish_login = (e) => {
+    if (!e["user"] || !e["password"]) {
+      return <>{window.alert("nhập thiếu")}</>;
+    }
+    fetch("https://dummyjson.com/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: e["user"],
+        password: e["password"],
+        expiresInMins: 30, // optional, defaults to 60
+      }),
+      //credentials: "include", // Include cookies (e.g., accessToken) in the request
+    }).then((res) => {
+      if (!res.ok) {
+        notification.error({
+          message: "đăng nhập không được do tài khoản không đúng",
+          description: "user hoặc password không đúng",
+        });
+      }
+    });
+  };
   const showLogin = () => {
     return (
       <>
