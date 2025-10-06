@@ -1,8 +1,16 @@
 import { Button, Form, Input, notification } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 function Login(props) {
   const { setChitiet, Chitiet, handleSave, handleAdd, mode } = props;
   const [form] = Form.useForm();
+  const [items, setItems] = useState(null);
+  useEffect(() => {
+    const item = JSON.parse(localStorage.getItem("data"));
+    if (item) {
+      setItems(item);
+    }
+  }, []);
+
   const onFinish_login = (e) => {
     if (!e["user"] || !e["password"]) {
       return <>{window.alert("nhập thiếu")}</>;
@@ -16,23 +24,24 @@ function Login(props) {
         expiresInMins: 30, // optional, defaults to 60
       }),
       //credentials: "include", // Include cookies (e.g., accessToken) in the request
-    })
-      .then((res) => {
-        if (!res.ok) {
-          notification.error({
-            message: "đăng nhập không được do tài khoản không đúng",
-            description: "user hoặc password không đúng",
-          });
-        }
-        return res.json();
-      })
-      .then((res) => {
-        localStorage.setItem("user", JSON.stringify(res));
+    }).then((res) => {
+      if (!res.ok) {
+        notification.error({
+          message: "đăng nhập không được do tài khoản không đúng",
+          description: "user hoặc password không đúng",
+          duration: 3,
+        });
+      } else {
+        localStorage.setItem("data", JSON.stringify(res));
+        setItems(res);
         notification.success({
           message: "đăng nhập thành công",
           description: "chào bạn",
+          duration: 3,
         });
-      });
+      }
+      return res.json();
+    });
   };
   const showLogin = () => {
     return (
