@@ -7,35 +7,36 @@ function Login(props) {
   const showLogin = () => {
     return (
       <>
-        <Form
-          form={form}
-          onFinish={onFinish_login}
-          initialValues={{
-            title: Chitiet?.title,
-            body: Chitiet?.body,
-          }}
-          className="bg-white p-8 rounded-2xl shadow-md w-[360px] mx-auto mt-[200px]"
-        >
-          <Form.Item name="user">
-            <Input
-              addonBefore="User"
-              placeholder="input text"
-              size="large"
-              style={{ width: 304 }}
-            ></Input>
-          </Form.Item>
-          <Form.Item name="password">
-            <Input
-              addonBefore="Password"
-              placeholder="input text"
-              size="large"
-              style={{ width: 304 }}
-            ></Input>
-          </Form.Item>
-          <Form.Item name="nut_bam_login">
-            <Button htmlType="submit">Login</Button>
-          </Form.Item>
-        </Form>
+        <div className="flex items-center h-screen mx-auto">
+          <Form
+            form={form}
+            onFinish={onFinish_login}
+            initialValues={{
+              title: Chitiet?.title,
+              body: Chitiet?.body,
+            }}
+          >
+            <Form.Item name="user">
+              <Input
+                addonBefore="User"
+                placeholder="input text"
+                size="large"
+                style={{ width: 304 }}
+              ></Input>
+            </Form.Item>
+            <Form.Item name="password">
+              <Input
+                addonBefore="Password"
+                placeholder="input text"
+                size="large"
+                style={{ width: 304 }}
+              ></Input>
+            </Form.Item>
+            <Form.Item name="nut_bam_login">
+              <Button htmlType="submit">Login</Button>
+            </Form.Item>
+          </Form>
+        </div>
       </>
     );
   };
