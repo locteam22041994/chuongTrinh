@@ -16,14 +16,23 @@ function Login(props) {
         expiresInMins: 30, // optional, defaults to 60
       }),
       //credentials: "include", // Include cookies (e.g., accessToken) in the request
-    }).then((res) => {
-      if (!res.ok) {
-        notification.error({
-          message: "đăng nhập không được do tài khoản không đúng",
-          description: "user hoặc password không đúng",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          notification.error({
+            message: "đăng nhập không được do tài khoản không đúng",
+            description: "user hoặc password không đúng",
+          });
+        }
+        return res.json();
+      })
+      .then((res) => {
+        localStorage.setItem("user", JSON.stringify(res));
+        notification.success({
+          message: "đăng nhập thành công",
+          description: "chào bạn",
         });
-      }
-    });
+      });
   };
   const showLogin = () => {
     return (
