@@ -1,128 +1,128 @@
-import { Button, Flex, Form, Input, Modal, Pagination, Table } from 'antd'
-import { NavLink, Route, Routes } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import Detailpost from './Detailpost'
-import Login from './Login'
-import MenuAntd from './MenuAntd'
+import { Button, Flex, Form, Input, Modal, Pagination, Table } from "antd";
+import { NavLink, Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Detailpost from "./Detailpost";
+import Login from "./Login";
+import MenuAntd from "./MenuAntd";
 function Post() {
-  const [Post, setPost] = useState([])
-  const [Filter, setFilter] = useState({ limit: 10, skip: 0 })
-  const [Total, setTotal] = useState(0)
-  const [Query, setQuery] = useState('')
-  const [Chitiet, setChitiet] = useState({})
-  const [isOpenModal, setIsOpenModal] = useState(false)
-  const [mode, setMode] = useState('view')
+  const [Post, setPost] = useState([]);
+  const [Filter, setFilter] = useState({ limit: 10, skip: 0 });
+  const [Total, setTotal] = useState(0);
+  const [Query, setQuery] = useState("");
+  const [Chitiet, setChitiet] = useState({});
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [mode, setMode] = useState("view");
   useEffect(() => {
     fetch(
-      'https://dummyjson.com/posts/search?limit=' +
+      "https://dummyjson.com/posts/search?limit=" +
         Filter.limit +
-        '&skip=' +
+        "&skip=" +
         Filter.skip +
         Query
     )
       .then((res) => res.json())
       .then((data) => {
-        setPost(data.posts)
-        setTotal(data.total)
-      })
-  }, [Query, Filter])
+        setPost(data.posts);
+        setTotal(data.total);
+      });
+  }, [Query, Filter]);
   const clickDieuchinh = (id) => {
-    fetch('https://dummyjson.com/posts/' + id)
+    fetch("https://dummyjson.com/posts/" + id)
       .then((res) => res.json())
       .then((data) => {
-        setChitiet(data)
-        setMode('edit')
-        setIsOpenModal(true)
-      })
-  }
+        setChitiet(data);
+        setMode("edit");
+        setIsOpenModal(true);
+      });
+  };
   const clickChitiet = (id, mode) => {
-    const current_post = Post.find((post) => post.id === id)
-    setChitiet(current_post)
-    setMode(mode)
-    setIsOpenModal(true)
-  }
+    const current_post = Post.find((post) => post.id === id);
+    setChitiet(current_post);
+    setMode(mode);
+    setIsOpenModal(true);
+  };
   const clickThem = (mode) => {
-    setMode(mode)
-    setIsOpenModal(true)
-  }
+    setMode(mode);
+    setIsOpenModal(true);
+  };
 
   const handleSave = (data) => {
     const list = Post.map((current_post) => {
       if (current_post.id === data.id) {
-        return data
+        return data;
       }
-      return current_post
-    })
-    setPost(list)
-    setIsOpenModal(false)
-  }
+      return current_post;
+    });
+    setPost(list);
+    setIsOpenModal(false);
+  };
   const handleAdd = (data) => {
-    let arr = []
-    arr = [data, ...Post]
-    setPost(arr)
-    setIsOpenModal(false)
-  }
+    let arr = [];
+    arr = [data, ...Post];
+    setPost(arr);
+    setIsOpenModal(false);
+  };
   const columns = [
-    { title: 'Title', dataIndex: 'title', key: 'title' },
-    { title: 'Body', dataIndex: 'body', key: 'body' },
+    { title: "Title", dataIndex: "title", key: "title" },
+    { title: "Body", dataIndex: "body", key: "body" },
     {
-      title: 'Thao tác',
-      dataIndex: 'thaotac',
-      key: 'thaotac',
+      title: "Thao tác",
+      dataIndex: "thaotac",
+      key: "thaotac",
       render: (_, current_post) => (
-        <Button onClick={() => clickChitiet(current_post.id, 'view')}>
+        <Button onClick={() => clickChitiet(current_post.id, "view")}>
           Chi tiết
         </Button>
       ),
     },
     {
-      title: 'Điều chỉnh',
-      dataIndex: 'thaotacdieuchinh',
-      key: 'thaotacdieuchinh',
+      title: "Điều chỉnh",
+      dataIndex: "thaotacdieuchinh",
+      key: "thaotacdieuchinh",
       render: (_, current_post) => (
-        <Button onClick={() => clickChitiet(current_post.id, 'edit')}>
+        <Button onClick={() => clickChitiet(current_post.id, "edit")}>
           Điều chỉnh
         </Button>
       ),
     },
-  ]
+  ];
   const onFinish_form = (e) => {
-    setQuery('&q=' + Number(e['tim_kiem']))
-    setFilter({ limit: Filter.limit, skip: 0 })
-  }
+    setQuery("&q=" + Number(e["tim_kiem"]));
+    setFilter({ limit: Filter.limit, skip: 0 });
+  };
   const Changpage = (page, pageSize) => {
-    setFilter({ limit: pageSize, skip: Filter.limit * (page - 1) })
-  }
+    setFilter({ limit: pageSize, skip: Filter.limit * (page - 1) });
+  };
   const ItemPage = (current, pageSize) => {
-    setFilter({ limit: pageSize, skip: Filter.limit * (current - 1) })
-  }
-  const Hientotal = () => <div>{Total}</div>
+    setFilter({ limit: pageSize, skip: Filter.limit * (current - 1) });
+  };
+  const Hientotal = () => <div>{Total}</div>;
   return (
     <>
-      <div className='block'>
+      <div className="block">
         <Form onFinish={onFinish_form}>
-          <Flex gap='5px'>
-            <Form.Item name='tim_kiem'>
+          <Flex gap="5px">
+            <Form.Item name="tim_kiem">
               <Input
-                placeholder='input search text'
-                size='large'
+                placeholder="input search text"
+                size="large"
                 style={{ width: 304 }}
               />
             </Form.Item>
-            <Form.Item name='nut_bam'>
-              <Button htmlType='submit'>Tìm kiếm</Button>
+            <Form.Item name="nut_bam">
+              <Button htmlType="submit">Tìm kiếm</Button>
             </Form.Item>
           </Flex>
         </Form>
         <Flex
-          gap='50em'
+          gap="50em"
           style={{
-            display: 'inline-flex', // khối inline-block
-            justifyContent: 'space-between', // giãn đều 2 nút
+            display: "inline-flex", // khối inline-block
+            justifyContent: "space-between", // giãn đều 2 nút
           }}
         >
-          <Button onClick={() => clickThem('add')}>Thêm</Button>
-          <NavLink to='/login'>
+          <Button onClick={() => clickThem("add")}>Thêm</Button>
+          <NavLink to="/login">
             <Button>Login</Button>
           </NavLink>
         </Flex>
@@ -133,7 +133,7 @@ function Post() {
           onShowSizeChange={ItemPage}
           showSizeChanger
           total={Total}
-          style={{ paddingLeft: '20px' }}
+          style={{ paddingLeft: "20px" }}
           showTotal={Hientotal}
           onChange={Changpage}
         />
@@ -154,6 +154,6 @@ function Post() {
         </Modal>
       </div>
     </>
-  )
+  );
 }
-export default Post
+export default Post;
