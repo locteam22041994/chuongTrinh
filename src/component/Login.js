@@ -14,6 +14,7 @@ function Login(props) {
             title: Chitiet?.title,
             body: Chitiet?.body,
           }}
+          className="bg-white p-8 rounded-2xl shadow-md w-[360px] mx-auto mt-[200px]"
         >
           <Form.Item name="user">
             <Input
