@@ -126,7 +126,7 @@ function Post() {
             <Button>Login</Button>
           </NavLink>
         </Flex>
-        <Table dataSource={Post} columns={columns} />
+        <Table dataSource={Post} rowKey="id" columns={columns} />
         <Pagination
           defaultPageSize={Filter.limit}
           pageSizeOptions={[1, 2, 3, 4]}
