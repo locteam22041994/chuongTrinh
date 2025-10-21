@@ -3,6 +3,7 @@ import "./App.css";
 import Login from "./component/Login";
 import MenuAntd from "./component/MenuAntd";
 import Post from "./component/Post";
+import Thongtindangnhap from "./component/Thongtindangnhap";
 function App() {
   return (
     <>
@@ -14,6 +15,7 @@ function App() {
             <Route path="post/list" element={<Post />} />
           </Route>
           <Route path="login" element={<Login />} />
+          <Route path="Thongtindangnhap" element={<Thongtindangnhap />} />
         </Routes>
       </div>
     </>
