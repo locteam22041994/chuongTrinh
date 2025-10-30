@@ -5,18 +5,44 @@ import Login from "./Login";
 function MenuAntd() {
   const MenuItem = [
     {
-      key: "posts",
-      label: "Post",
+      key: "Home",
+      label: <NavLink to="/">Home</NavLink>,
+    },
+    {
+      key: "Men",
+      label: "Men",
       children: [
         {
-          key: "1",
-          label: <NavLink to="/">Home</NavLink>,
-        },
-        {
-          key: "2",
-          label: <NavLink to="/post/list">List</NavLink>,
+          key: "Thu đông",
+          label: "Thu đông",
         },
       ],
+    },
+    {
+      key: "Women",
+      label: "Women",
+      children: [
+        {
+          key: "Thu đông",
+          label: "Thu đông",
+        },
+      ],
+    },
+    {
+      key: "Shop",
+      label: <NavLink to="/">Shop</NavLink>,
+    },
+    {
+      key: "Product",
+      label: <NavLink to="/">Product</NavLink>,
+    },
+    {
+      key: "404 page",
+      label: <NavLink to="/">404 page</NavLink>,
+    },
+    {
+      key: "Checkout",
+      label: <NavLink to="/">Checkout</NavLink>,
     },
   ];
 
@@ -32,20 +58,32 @@ function MenuAntd() {
   return (
     <>
       <Menu
+        theme="dark"
         type="vertical"
         onOpenChange={onOpenChange}
         // onClick={onClick}
-        style={{ width: 256 }}
+        style={{
+          width: "46em",
+          fontSize: "0.8rem",
+          lineHeight: "6",
+          backgroundColor: "black",
+        }}
+        rootClassName="compact-menu"
         defaultSelectedKeys={["posts"]}
         defaultOpenKeys={["posts"]}
-        mode="inline"
+        mode="horizontal"
         items={MenuItem}
       />
+      {
+        <style>
+          {`
+  .compact-menu .ant-menu-item {
+    padding-inline: 5px !important; 
+  }
+`}
+        </style>
+      }
       <Outlet />
-      {/* <Routes>
-        <Route path="/post/list" element={<Post />} />
-        <Route path="/" element={"Trang chủ"} />
-      </Routes> */}
     </>
   );
 }
