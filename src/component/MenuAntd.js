@@ -2,6 +2,7 @@ import { Menu } from "antd";
 import { NavLink, Route, Routes, Outlet } from "react-router-dom";
 import Post from "./Post";
 import Login from "./Login";
+import Header from "../css/header.css";
 function MenuAntd() {
   const MenuItem = [
     {
@@ -74,15 +75,7 @@ function MenuAntd() {
         mode="horizontal"
         items={MenuItem}
       />
-      {
-        <style>
-          {`
-  .compact-menu .ant-menu-item {
-    padding-inline: 5px !important; 
-  }
-`}
-        </style>
-      }
+
       <Outlet />
     </>
   );

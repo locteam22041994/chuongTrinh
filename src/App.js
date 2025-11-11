@@ -6,6 +6,7 @@ import Post from "./component/Post";
 import Thongtindangnhap from "./component/Thongtindangnhap";
 import Header from "./component/Header";
 import Layout from "./component/Layout";
+
 function App() {
   return (
     <>
@@ -17,7 +18,6 @@ function App() {
 
             <Route path="post/list" element={<Post />} />
           </Route>
-          x
           <Route path="login" element={<Login />} />
           <Route path="Thongtindangnhap" element={<Thongtindangnhap />} />
         </Routes>

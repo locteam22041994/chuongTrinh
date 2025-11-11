@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 import "antd/dist/reset.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
