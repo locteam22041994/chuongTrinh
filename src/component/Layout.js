@@ -2,11 +2,15 @@ import { Button, Form, Input, notification } from "antd";
 import { useEffect, useState } from "react";
 import MenuAntd from "./MenuAntd";
 import Header from "./Header";
+import Slide from "./Slide";
+import Category from "./Category";
 function Layout() {
   return (
     <>
-      <div className="flex items-center mx-auto w-full">
+      <div className="flex flex-col mx-auto w-full">
         <Header />
+        <Slide />
+        <Category />
       </div>
     </>
   );
