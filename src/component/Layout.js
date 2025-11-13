@@ -7,7 +7,7 @@ import Category from "./Category";
 function Layout() {
   return (
     <>
-      <div className="flex flex-col mx-auto w-full">
+      <div className="mx-auto w-full">
         <Header />
         <Slide />
         <Category />
