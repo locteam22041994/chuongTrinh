@@ -8,7 +8,7 @@ function Header() {
         <a href="/" class="logo">
           <img
             className="pl-24 pr-24 max-w-[350px] w-[300px] pt-[20px] max-h-[100px] flex items-center justify-center h-[60px] space-x-4"
-            src="./images/logo/logo.png"
+            src="/images/logo/logo.png"
             alt="Tên thương hiệu"
           />
         </a>
@@ -33,7 +33,7 @@ function Header() {
               className="flex p-0 items-center justify-center hover:bg-[#111827]  transition rounded-md"
             >
               <img
-                src="./images/button_header/gio_hang.png"
+                src="/images/button_header/gio_hang.png"
                 alt="giỏ hàng"
                 className="w-9 h-9 "
               />
@@ -44,7 +44,7 @@ function Header() {
               className="flex p-0  items-center justify-center hover:bg-[#111827] transition rounded-md"
             >
               <img
-                src="./images/button_header/tim_kiem.png"
+                src="/images/button_header/tim_kiem.png"
                 alt="tìm kiếm"
                 className="w-9 h-9"
               />

@@ -1,0 +1,77 @@
+/* Đảm bảo mũi tên nổi lên trên và căn giữa theo chiều dọc */
+.brands-slider .slick-prev,
+.brands-slider .slick-next {
+  width: 40px;
+  height: 40px;
+  z-index: 20 !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+
+  top: 50% !important; /* Đặt ở giữa */
+  transform: translateY(-50%) !important; /* Căn giữa chính xác */
+}
+
+/* Giữ mũi tên trong phạm vi slider (không bị tràn) */
+.brands-slider .slick-prev {
+  left: 10px !important;
+}
+
+.brands-slider .slick-next {
+  right: 10px !important;
+}
+
+/* Xoá icon mặc định của slick */
+.brands-slider .slick-prev:before,
+.brands-slider .slick-next:before {
+  display: none !important;
+}
+
+/* Vẽ icon mũi tên mới */
+.brands-slider .slick-prev::after,
+.brands-slider .slick-next::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+
+  border-top: 3px solid #ff0050;
+  border-left: 3px solid #ff0050;
+
+  transform: rotate(-45deg);
+}
+
+/* Mũi tên bên phải – đổi hướng */
+.brands-slider .slick-next::after {
+  transform: rotate(135deg);
+}
+
+/* Hover */
+.brands-slider .slick-prev:hover::after,
+.brands-slider .slick-next:hover::after {
+  border-color: #d1003c;
+}
+/* Đặt chiều cao slide = chiều cao hình (150px) */
+/* .slick-slide {
+  height: 150px !important;
+} */
+
+.brands-slider .slider-container {
+  margin: 100px 0; /* khoảng cách top & bottom */
+  position: relative;
+}
+.brands-slider .slick-slide > div {
+  height: 100% !important;
+}
+
+/* Giữ hình luôn ở giữa */
+.brands-slider .slick-slide img {
+  width: 150px; /* hình nhỏ lại */
+  height: auto;
+  margin: 0 auto;
+}
+/* Căn giữa nội dung mỗi slide */
+.brands-slider .slick-slide {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
